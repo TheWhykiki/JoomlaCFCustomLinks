@@ -28,10 +28,12 @@ class JFormFieldWhylink extends JFormFieldText
         $field      .= $this->_setModalFile($this->id);
         $field      .= $this->_setModalArticles($this->id);
         $field      .= $this->_setModalMenuitems($this->id);
+        $field      .= $this->_setContactItems($this->id);
         $field      .=   '<input type="text" name="' .  $this->name . '" id="' . $this->id . '" value="' . $this->value. '" />';
         $field      .=  '<a href="#articlesModal" role="button" class="btn btn-info btnWhylink" id="articlesModalBtn" data-toggle="modal"><span class="icon-list large-icon"> </span></a>';
         $field      .=  '<a href="#fileModal" role="button" class="btn btn-info btnWhylink" id="fileModalBtn" data-toggle="modal"><span class="icon-file large-icon"> </span></a>';
         $field      .=  '<a href="#menuModal" role="button" class="btn btn-info btnWhylink" id="menuModalBtn" data-toggle="modal"><span class="icon-link large-icon"> </span></a>';
+        $field      .=  '<a href="#contactModal" role="button" class="btn btn-info btnWhylink" id="contactModalBtn" data-toggle="modal"><span class="icon-user large-icon"> </span></a>';
         $field      .=   '</div>';
 
        return $field;
@@ -92,13 +94,13 @@ class JFormFieldWhylink extends JFormFieldText
     protected function _setContactItems($dataAttribute){
         $token = Session::getFormToken();
 
-        $html = '<div id="menuModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">';
+        $html = '<div id="contactModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">';
         $html .= '<div class="modal-header">';
             $html .= '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-            $html .= '<h3 id="menuModalLabel">' . Text::_('WHYLINK_MENUHEADLINE') . '</h3>';
+            $html .= '<h3 id="contactModalLabel">' . Text::_('WHYLINK_contactHEADLINE') . '</h3>';
         $html .= '</div>';
-        $html .= '<div class="modal-body" data-fieldid="' . $dataAttribute . '" data-link="index.php?layout=modal&tmpl=component&' . $token . '=1&option=com_menus&view=items">';
-            $html .= '<iframe id="menuFrame" src="index.php?layout=modal&tmpl=component&' . $token . '=1&option=com_menus&view=items"></iframe>';
+        $html .= '<div class="modal-body" data-fieldid="' . $dataAttribute . '" data-link="index.php?layout=modal&tmpl=component&' . $token . '=1&option=com_contact&view=contacts">';
+            $html .= '<iframe id="contactFrame" src="index.php?layout=modal&tmpl=component&' . $token . '=1&option=com_contact&view=contacts"></iframe>';
         $html .= '</div>';
         $html .= '<div class="modal-footer">';
             $html .= '<button class="btn" data-dismiss="modal" aria-hidden="true">' . Text::_('WHYLINK_CLOSE') . '</button>';

@@ -29,7 +29,7 @@ jQuery( document ).ready(function() {
       });
   });
 
-  const types = ['menu','articles'];
+  const types = ['menu','articles', 'contact'];
 
   types.map(function(type) {
     jQuery('#' + type + 'Modal').on('show', function (e) {
