@@ -20,6 +20,8 @@
   <languages>
     <language tag="de-DE">language/de-DE/de-DE.plg_fields_whylink.sys.ini</language>
     <language tag="de-DE">language/de-DE/de-DE.plg_fields_whylink.ini</language>
+    <language tag="en-GB">language/en-GB/en-GB.plg_fields_whylink.sys.ini</language>
+    <language tag="en-GB">language/en-GB/en-GB.plg_fields_whylink.ini</language>
   </languages>
 	<config>
 		<fields name="params">
