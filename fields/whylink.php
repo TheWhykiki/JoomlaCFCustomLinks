@@ -30,9 +30,9 @@ class JFormFieldWhylink extends JFormFieldText
         $field      .= $this->_setModalMenuitems($this->id);
         $field      .= $this->_setContactItems($this->id);
         $field      .=   '<input type="text" name="' .  $this->name . '" id="' . $this->id . '" value="' . $this->value. '" />';
-        $field      .=  '<a href="#articlesModal" role="button" class="btn btn-info btnWhylink" id="articlesModalBtn" data-toggle="modal"><span class="icon-list large-icon"> </span></a>';
-        $field      .=  '<a href="#fileModal" role="button" class="btn btn-info btnWhylink" id="fileModalBtn" data-toggle="modal"><span class="icon-file large-icon"> </span></a>';
         $field      .=  '<a href="#menuModal" role="button" class="btn btn-info btnWhylink" id="menuModalBtn" data-toggle="modal"><span class="icon-link large-icon"> </span></a>';
+        $field      .=  '<a href="#fileModal" role="button" class="btn btn-info btnWhylink" id="fileModalBtn" data-toggle="modal"><span class="icon-file large-icon"> </span></a>';
+        $field      .=  '<a href="#articlesModal" role="button" class="btn btn-info btnWhylink" id="articlesModalBtn" data-toggle="modal"><span class="icon-list large-icon"> </span></a>';
         $field      .=  '<a href="#contactModal" role="button" class="btn btn-info btnWhylink" id="contactModalBtn" data-toggle="modal"><span class="icon-user large-icon"> </span></a>';
         $field      .=   '</div>';
 

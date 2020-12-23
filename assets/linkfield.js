@@ -29,36 +29,73 @@ jQuery( document ).ready(function() {
       });
   });
 
+  // Articles Modal
+
   const types = ['menu','articles', 'contact'];
 
+  function checkIframeLoaded(type) {
+    // Get a handle to the iframe element
+    var iframe = document.getElementById(type + 'Frame');
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    // Check if loading is complete
+    if (  iframeDoc.readyState  == 'complete' ) {
+      //iframe.contentWindow.alert("Hello");
+      iframe.contentWindow.onload = function(){
+        alert("I am loaded");
+      };
+      // The loading is complete, call the function we want executed once the iframe is loaded
+      var afterload = afterLoading();
+      if(afterload){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
+    // If we are here, it is not loaded. Set things up so we check   the status again in 100 milliseconds
+    window.setTimeout(checkIframeLoaded, 100);
+  }
+
+  function afterLoading(){
+    return true;
+  }
+
   types.map(function(type) {
-    jQuery('#' + type + 'Modal').on('show', function (e) {
+
+    jQuery('#' + type + 'Modal').live('show', function (e) {
       var link = jQuery('#' + type + 'Modal .modal-body').data('link');
-      jQuery('#' + type + 'Modal .modal-body').html('');
       jQuery('#' + type + 'Modal .modal-body').html('<iframe id="' + type + 'Frame" src="' + link + '"></iframe>');
     })
 
     jQuery('#' + type + 'Modal').on('shown', function (e) {
       var iframe = jQuery('#' + type + 'Frame');
-      jQuery(iframe).contents().find('.select-link').removeAttr('href');
-      jQuery(iframe).contents().find('.select-link').css('pointer-events', 'none');
-      jQuery(iframe).contents().find('form').removeAttr('action');
-      var dataAttribute = jQuery('#' + type + 'Modal .modal-body').data('fieldid');
-      var tableRow =  jQuery(iframe).contents().find('tr');
+      jQuery(iframe).ready(function(){
+        //your code (will be called once iframe is done loading)
 
-      jQuery(iframe).contents().find('tr').click(function(){
-        console.log(this);
-        var id = jQuery(this).find('.select-link').data('id');
-        var uri = jQuery(this).find('.select-link').data('uri');
-        console.log(uri);
-        jQuery('#' + dataAttribute).val('');
-        jQuery('#' + dataAttribute).val(uri);
-        if(uri != '' && uri != undefined){
-          jQuery('.modal-body').html('');
-          jQuery('#' + type + 'Modal').modal('hide');
-        }
+          console.log('loaded', type + 'loaded');
+          console.log('links', jQuery(iframe).contents().find('.select-link'));
+          jQuery(iframe).contents().find('.select-link').removeAttr('href');
+          jQuery(iframe).contents().find('.select-link').css('pointer-events', 'none');
+          jQuery(iframe).contents().find('form').removeAttr('action');
+
+          var dataAttribute = jQuery('#' + type + 'Modal .modal-body').data('fieldid');
+          var tableRow =  jQuery(iframe).contents().find('tr');
+
+          jQuery(iframe).contents().find('tr').click(function(){
+            console.log(this);
+            var id = jQuery(this).find('.select-link').data('id');
+            var uri = jQuery(this).find('.select-link').data('uri');
+            console.log(uri);
+            jQuery('#' + dataAttribute).val('');
+            jQuery('#' + dataAttribute).val(uri);
+            if(uri != '' && uri != undefined){
+              //jQuery('.modal-body').html('');
+              jQuery('#' + type + 'Modal').modal('hide');
+            }
+          });
       });
-
     })
   });
 
