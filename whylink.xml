@@ -15,6 +15,7 @@
 		  <folder>tmpl</folder>
       <folder>language</folder>
       <folder>fields</folder>
+      <folder>assets</folder>
 	</files>
   <languages>
     <language tag="de-DE">language/de-DE/de-DE.plg_fields_whylink.sys.ini</language>
