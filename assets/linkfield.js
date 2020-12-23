@@ -21,7 +21,6 @@ jQuery( document ).ready(function() {
             jQuery('#' + dataAttribute).val('');
             jQuery('#' + dataAttribute).val(filename);
             if(filename != '' && filename != undefined){
-              jQuery('.modal-body').html('');
               jQuery('#fileModal').modal('hide');
             }
           })
@@ -36,22 +35,25 @@ jQuery( document ).ready(function() {
   function checkIframeLoaded(type) {
     // Get a handle to the iframe element
     var iframe = document.getElementById(type + 'Frame');
-    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    if(iframe != null){
+      var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-    // Check if loading is complete
-    if (  iframeDoc.readyState  == 'complete' ) {
-      //iframe.contentWindow.alert("Hello");
-      iframe.contentWindow.onload = function(){
-        alert("I am loaded");
-      };
-      // The loading is complete, call the function we want executed once the iframe is loaded
-      var afterload = afterLoading();
-      if(afterload){
-        return true;
-      }
-      else{
-        return false;
-      }
+      // Check if loading is complete
+      if (  iframeDoc.readyState  == 'complete' ) {
+        //iframe.contentWindow.alert("Hello");
+        iframe.contentWindow.onload = function(){
+          alert("I am loaded");
+        };
+        // The loading is complete, call the function we want executed once the iframe is loaded
+        var afterload = afterLoading();
+        if(afterload){
+          return true;
+        }
+        else{
+          return false;
+        }
+    }
+
     }
 
     // If we are here, it is not loaded. Set things up so we check   the status again in 100 milliseconds
@@ -64,16 +66,11 @@ jQuery( document ).ready(function() {
 
   types.map(function(type) {
 
-    jQuery('#' + type + 'Modal').live('show', function (e) {
-      var link = jQuery('#' + type + 'Modal .modal-body').data('link');
-      jQuery('#' + type + 'Modal .modal-body').html('<iframe id="' + type + 'Frame" src="' + link + '"></iframe>');
-    })
-
     jQuery('#' + type + 'Modal').on('shown', function (e) {
       var iframe = jQuery('#' + type + 'Frame');
-      jQuery(iframe).ready(function(){
-        //your code (will be called once iframe is done loading)
-
+      var iframeLoaded = checkIframeLoaded(type);
+      console.log(iframeLoaded);
+      if(iframeLoaded){
           console.log('loaded', type + 'loaded');
           console.log('links', jQuery(iframe).contents().find('.select-link'));
           jQuery(iframe).contents().find('.select-link').removeAttr('href');
@@ -95,7 +92,7 @@ jQuery( document ).ready(function() {
               jQuery('#' + type + 'Modal').modal('hide');
             }
           });
-      });
+      }
     })
   });
 
